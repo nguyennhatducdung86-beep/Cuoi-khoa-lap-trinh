@@ -1,0 +1,346 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dungship - Trang chủ</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page">
+  <header>
+    <div class="container nav">
+      <div class="logo">
+        <div class="logo-mark">DS</div>
+        Dungship
+      </div>
+
+      <nav>
+        <a href="trangchu.html">Trang chủ</a>
+        <a href="trangsanpham.html">Menu</a>
+        <a href="tinhtien.html">Thanh toán</a>
+      </nav>
+
+      <div class="search">
+        <span>🔎</span>
+        <input type="text" id="search-input" placeholder="Bạn muốn uống gì hôm nay?">
+      </div>
+
+      <div class="actions">
+        <button class="icon-btn">🧋</button>
+        <button class="icon-btn">👤</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <span class="badge">Giao nhanh trong 30 - 45 phút</span>
+        <h1>Đồ uống tươi mát cho mọi khoảnh khắc</h1>
+        <p>Trà trái cây, cà phê rang xay, sữa tươi và đá xay. Nguyên liệu sạch, pha chế chuẩn vị, giảm giá theo combo.</p>
+        <div class="cta">
+          <button class="btn primary" type="button" id="hero-order-btn">Đặt ngay</button>
+          <a class="btn ghost" href="#danh-muc-noi-bat">Xem menu</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-product"></div>
+        <h3>Combo trà trái cây</h3>
+        <p>3 ly size lớn, giảm 20% hôm nay.</p>
+        <div class="price">Chỉ từ 129.000đ</div>
+      </div>
+    </section>
+
+    <section class="section" id="danh-muc-noi-bat">
+      <h2>Danh mục nổi bật</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="product-image"></div>
+          <h3>Trà sữa</h3>
+          <p>Trân châu, kem cheese, dễ uống</p>
+          <div class="price">Từ 42.000đ</div>
+          <a class="btn primary buy-now" href="tinhtien.html" data-name="Trà sữa trân châu" data-price="42000">Mua ngay</a>
+        </div>
+        <div class="card">
+          <div class="product-image"></div>
+          <h3>Cà phê</h3>
+          <p>Đậm vị, tỉnh táo cả ngày</p>
+          <div class="price">39.000đ</div>
+          <a class="btn primary buy-now" href="tinhtien.html" data-name="Americano lạnh" data-price="39000">Mua ngay</a>
+        </div>
+        <div class="card">
+          <div class="product-image"></div>
+          <h3>Trà trái cây</h3>
+          <p>Chua ngọt thanh mát, thơm dịu</p>
+          <div class="price">45.000đ</div>
+          <a class="btn primary buy-now" href="tinhtien.html" data-name="Trà đào cam sả" data-price="45000">Mua ngay</a>
+        </div>
+        <div class="card">
+          <div class="product-image"></div>
+          <h3>Đá xay</h3>
+          <p>Mịn lạnh, hợp ngày nóng</p>
+          <div class="price">59.000đ</div>
+          <a class="btn primary buy-now" href="tinhtien.html" data-name="Choco đá xay" data-price="59000">Mua ngay</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Best-seller hôm nay</h2>
+        <p class="section-copy">Các món bán chạy được chọn từ nhiều nhóm khác nhau.</p>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="product-image"></div>
+          <h3>Trà đào cam sả</h3>
+          <p>Hương thơm dễ chịu</p>
+          <div class="price">45.000đ</div>
+          <a class="btn primary buy-now" href="tinhtien.html" data-name="Trà đào cam sả" data-price="45000">Mua ngay</a>
+        </div>
+        <div class="card">
+          <div class="product-image"></div>
+          <h3>Latte caramel</h3>
+          <p>Ngọt dịu, cân bằng</p>
+          <div class="price">55.000đ</div>
+          <a class="btn primary buy-now" href="tinhtien.html" data-name="Latte caramel" data-price="55000">Mua ngay</a>
+        </div>
+        <div class="card">
+          <div class="product-image"></div>
+          <h3>Trà sữa trân châu</h3>
+          <p>Vị trà đậm, topping dai mềm</p>
+          <div class="price">42.000đ</div>
+          <a class="btn primary buy-now" href="tinhtien.html" data-name="Trà sữa trân châu" data-price="42000">Mua ngay</a>
+        </div>
+        <div class="card">
+          <div class="product-image"></div>
+          <h3>Matcha đá xay</h3>
+          <p>Thơm béo, mịn</p>
+          <div class="price">62.000đ</div>
+          <a class="btn primary buy-now" href="tinhtien.html" data-name="Matcha đá xay" data-price="62000">Mua ngay</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Món theo nhóm</h2>
+        <p class="section-copy">Dễ chọn nhanh theo khẩu vị yêu thích.</p>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="product-image"></div>
+          <h3>Trà sữa khoai môn</h3>
+          <p>Béo thơm, màu vị đậm</p>
+          <div class="price">47.000đ</div>
+          <a class="btn primary buy-now" href="tinhtien.html" data-name="Trà sữa khoai môn" data-price="47000">Mua ngay</a>
+        </div>
+        <div class="card">
+          <div class="product-image"></div>
+          <h3>Bạc xỉu đá</h3>
+          <p>Cà phê sữa ngọt nhẹ</p>
+          <div class="price">41.000đ</div>
+          <a class="btn primary buy-now" href="tinhtien.html" data-name="Bạc xỉu đá" data-price="41000">Mua ngay</a>
+        </div>
+        <div class="card">
+          <div class="product-image"></div>
+          <h3>Trà dâu nhiệt đới</h3>
+          <p>Hương trái cây tươi sáng</p>
+          <div class="price">48.000đ</div>
+          <a class="btn primary buy-now" href="tinhtien.html" data-name="Trà dâu nhiệt đới" data-price="48000">Mua ngay</a>
+        </div>
+        <div class="card">
+          <div class="product-image"></div>
+          <h3>Cookies đá xay</h3>
+          <p>Ngọt béo, topping giòn</p>
+          <div class="price">63.000đ</div>
+          <a class="btn primary buy-now" href="tinhtien.html" data-name="Cookies đá xay" data-price="63000">Mua ngay</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="banner" id="promo-banner">
+        <span class="badge">Ưu đãi thành viên mới</span>
+        <h2>Giảm 15% đơn đầu tiên, tặng topping bất kỳ</h2>
+        <p>Đăng ký để nhận mã giảm giá và cập nhật  món mới mỗi tuần.</p>
+        <button class="btn primary" type="button" id="promo-btn">Nhận ưu đãi</button>
+        <p class="promo-message" id="promo-message" hidden>Mã ưu đãi của bạn là <strong id="promo-code-value"></strong>. Nhập mã này khi đặt đơn để giảm 15% cho đơn đầu tiên.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Khách hàng nói gì</h2>
+      <div class="testimonials">
+        <div class="testimonial">
+          <p>“Trà trái cây thơm ngon, giao nhanh, đá vừa đủ.”</p>
+          <strong>Hà An</strong>
+        </div>
+        <div class="testimonial">
+          <p>“Cà phê đậm vị, đóng gói đẹp, giữ nóng tốt.”</p>
+          <strong>Minh Trí</strong>
+        </div>
+        <div class="testimonial">
+          <p>“Menu đa dạng, giá hợp lý, đặt qua web rất tiện.”</p>
+          <strong>Ngọc Lan</strong>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="grid-2">
+        <div>
+          <h3>Dungship</h3>
+          <p>Đồ uống tươi mỗi ngày, giao nhanh tận nơi.</p>
+        </div>
+        <div>
+          <p>Hotline: 0326 792 671</p>
+          <p>Email: hello@dungship.vn</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const heroOrderBtn = document.getElementById('hero-order-btn');
+    const promoBtn = document.getElementById('promo-btn');
+    const promoMessage = document.getElementById('promo-message');
+    const promoBanner = document.getElementById('promo-banner');
+    const promoCodeValue = document.getElementById('promo-code-value');
+    const buyNowButtons = document.querySelectorAll('.buy-now');
+    const searchInput = document.getElementById('search-input');
+    const productCards = document.querySelectorAll('.card');
+    const PROMO_STORAGE_KEY = 'dungshipPromo';
+    const PROMO_SESSION_KEY = 'dungshipPromoSession';
+
+    const emptyState = document.createElement('p');
+    emptyState.id = 'search-empty-state';
+    emptyState.textContent = 'Không tìm thấy món phù hợp với từ khóa của bạn.';
+    emptyState.style.display = 'none';
+    emptyState.style.marginTop = '12px';
+    emptyState.style.fontWeight = '600';
+    document.getElementById('danh-muc-noi-bat').appendChild(emptyState);
+
+    function updateCart(product) {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existingProduct = cart.find((item) => item.name === product.name);
+
+      if (existingProduct) {
+        existingProduct.quantity += 1;
+      } else {
+        cart.push({ ...product, quantity: 1 });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    function generatePromoCode() {
+      const randomPart = Math.random().toString(36).slice(2, 8).toUpperCase();
+      return `WELCOME15-${randomPart}`;
+    }
+
+    function createPromoOffer() {
+      const promoOffer = {
+        code: generatePromoCode(),
+        discountRate: 0.15,
+        isUsed: false
+      };
+
+      localStorage.setItem(PROMO_STORAGE_KEY, JSON.stringify(promoOffer));
+      return promoOffer;
+    }
+
+    function getPromoOfferForSession() {
+      const hasSessionPromo = sessionStorage.getItem(PROMO_SESSION_KEY);
+      const storedPromoOffer = JSON.parse(localStorage.getItem(PROMO_STORAGE_KEY)) || null;
+
+      if (hasSessionPromo && storedPromoOffer) {
+        return storedPromoOffer;
+      }
+
+      const promoOffer = createPromoOffer();
+      sessionStorage.setItem(PROMO_SESSION_KEY, 'active');
+      return promoOffer;
+    }
+
+    function normalizeText(value) {
+      return value
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .trim();
+    }
+
+    function filterProducts(keyword) {  
+      const normalizedKeyword = normalizeText(keyword);
+      let visibleCount = 0;
+      let firstMatchedCard = null;
+
+      productCards.forEach((card) => {
+        const title = card.querySelector('h3')?.textContent || '';
+        const description = card.querySelector('p')?.textContent || '';
+        const searchableText = normalizeText(`${title} ${description}`);
+        const isMatched = !normalizedKeyword || searchableText.includes(normalizedKeyword);
+
+        card.style.display = isMatched ? '' : 'none';
+
+        if (isMatched) {
+          visibleCount += 1;
+          if (!firstMatchedCard) {
+            firstMatchedCard = card;
+          }
+        }
+      });
+
+      emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+      return firstMatchedCard;
+    }
+
+    heroOrderBtn.addEventListener('click', () => {
+      updateCart({
+        name: 'Combo trà trái cây',
+        price: 129000
+      });
+
+      window.location.href = 'tinhtien.html';
+    });
+
+    const currentPromoOffer = getPromoOfferForSession();
+    promoCodeValue.textContent = currentPromoOffer.code;
+
+    promoBtn.addEventListener('click', () => {
+      promoMessage.hidden = false;
+      promoBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    buyNowButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const selectedProduct = {
+          name: button.dataset.name,
+          price: Number(button.dataset.price)
+        };
+
+        updateCart(selectedProduct);
+      });
+    });
+
+    searchInput.addEventListener('input', (event) => {
+      filterProducts(event.target.value);
+    });
+
+    searchInput.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter') {
+        return;
+      }
+
+      const firstMatchedCard = filterProducts(event.target.value);
+
+      if (firstMatchedCard) {
+        firstMatchedCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  </script>
+</body>
+</html>
