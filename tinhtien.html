@@ -1,0 +1,322 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dungship - Thanh toán</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page">
+  <header>
+    <div class="container nav">
+      <div class="logo">
+        <div class="logo-mark">DS</div>
+        Dungship
+      </div>
+
+      <nav>
+        <a href="trangchu.html">Trang chủ</a>
+        <a href="trangsanpham.html">Menu</a>
+        <a href="tinhtien.html">Thanh toán</a>
+      </nav>
+
+      <div class="search">
+        <span>🔎</span>
+        <input type="text" id="promo-code-input" placeholder="Tìm mã ưu đãi">
+      </div>
+
+      <div class="actions">
+        <button class="icon-btn">🧾</button>
+        <button class="icon-btn">👤</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <span class="badge">Bước cuối cùng</span>
+        <h1>Thanh toán đơn đồ uống</h1>
+        <p>Kiểm tra lại món đã chọn, thêm topping và chọn phương thức giao phù hợp.</p>
+      </div>
+      <div class="hero-card">
+        <div class="hero-product"></div>
+        <h3>Ước tính thời gian giao</h3>
+        <p>Nội thành: 30 - 45 phút. Ngoại thành: 60 - 90 phút.</p>
+        <div class="price" id="hero-total">Tổng đơn: 0đ</div>
+      </div>
+    </section>
+
+    <section class="section grid-2">
+      <div class="cart">
+        <h2>Giỏ hàng</h2>
+        <div id="cart-list"></div>
+        <div class="cart-actions">
+          <button class="btn ghost" type="button" id="reset-cart-btn">Reset giỏ hàng</button>
+          <a class="btn primary" href="trangsanpham.html">Mua thêm</a>
+        </div>
+        <p class="cart-empty" id="cart-empty-message" hidden>Giỏ hàng đang trống. Hãy chọn một sản phẩm để thanh toán.</p>
+      </div>
+
+      <form class="form">
+        <h2>Thông tin giao hàng</h2>
+        <label>Họ và tên</label>
+        <input type="text" id="customer-name" placeholder="Nguyễn Minh">
+        <label>Số điện thoại</label>
+        <input type="tel" id="customer-phone" placeholder="0909 123 456">
+        <label>Địa chỉ</label>
+        <input type="text" id="customer-address" placeholder="Số nhà, đường, phường/xã">
+        <label>Quận/Huyện</label>
+        <input type="text" id="customer-district" placeholder="Quận 1">
+        <label>Chọn mức đá/đường</label>
+        <select id="customer-option">
+          <option>Đường 100% - Đá 100%</option>
+          <option>Đường 70% - Đá 70%</option>
+          <option>Đường 50% - Đá 50%</option>
+          <option>Không đường - Ít đá</option>
+        </select>
+        <label>Ghi chú cho cửa hàng</label>
+        <textarea rows="3" placeholder="Ví dụ: thêm trân châu, ít đá"></textarea>
+        <button class="btn primary" type="button" id="confirm-order-btn">Xác nhận đặt hàng</button>
+        <p class="order-message" id="order-message" hidden>Đặt hàng thành công. Cửa hàng đang chuẩn bị đơn cho bạn.</p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Cảm ơn bạn đã chọn Dungship. Mọi thắc mắc vui lòng liên hệ hotline 0326 792 671.</p>
+    </div>
+  </footer>
+
+  <script>
+    const heroTotal = document.getElementById('hero-total');
+    const resetCartBtn = document.getElementById('reset-cart-btn');
+    const cartList = document.getElementById('cart-list');
+    const cartEmptyMessage = document.getElementById('cart-empty-message');
+    const confirmOrderBtn = document.getElementById('confirm-order-btn');
+    const orderMessage = document.getElementById('order-message');
+    const customerName = document.getElementById('customer-name');
+    const customerPhone = document.getElementById('customer-phone');
+    const customerAddress = document.getElementById('customer-address');
+    const customerDistrict = document.getElementById('customer-district');
+    const customerOption = document.getElementById('customer-option');
+    const promoCodeInput = document.getElementById('promo-code-input');
+    const SHIPPING_FEE = 15000;
+    const PROMO_STORAGE_KEY = 'dungshipPromo';
+
+    const promoFeedback = document.createElement('p');
+    promoFeedback.id = 'promo-feedback';
+    promoFeedback.style.marginTop = '8px';
+    promoFeedback.style.fontSize = '14px';
+    promoCodeInput.parentElement.appendChild(promoFeedback);
+
+    function formatPrice(price) {
+      return `${Number(price).toLocaleString('vi-VN')}đ`;
+    }
+
+    function getCart() {
+      return JSON.parse(localStorage.getItem('cart')) || [];
+    }
+
+    function getPromoOffer() {
+      return JSON.parse(localStorage.getItem(PROMO_STORAGE_KEY)) || null;
+    }
+
+    function getPromoCode() {
+      return promoCodeInput.value.trim().toUpperCase();
+    }
+
+    function getDiscountAmount(subtotal) {
+      const promoOffer = getPromoOffer();
+
+      if (!promoOffer || promoOffer.isUsed || getPromoCode() !== promoOffer.code) {
+        return 0;
+      }
+
+      return Math.round(subtotal * promoOffer.discountRate);
+    }
+
+    function updatePromoFeedback(cartCount) {
+      const promoCode = getPromoCode();
+      const promoOffer = getPromoOffer();
+
+      if (!promoCode) {
+        promoFeedback.textContent = '';
+        return;
+      }
+
+      if (!cartCount) {
+        promoFeedback.textContent = 'Mã ưu đãi sẽ được áp dụng khi giỏ hàng có sản phẩm.';
+        promoFeedback.style.color = '#8a6a00';
+        return;
+      }
+
+      if (!promoOffer) {
+        promoFeedback.textContent = 'Hiện chưa có mã ưu đãi khả dụng từ trang chủ.';
+        promoFeedback.style.color = '#c0392b';
+        return;
+      }
+
+      if (promoCode !== promoOffer.code) {
+        promoFeedback.textContent = 'Mã ưu đãi không hợp lệ.';
+        promoFeedback.style.color = '#c0392b';
+        return;
+      }
+
+      if (promoOffer.isUsed) {
+        promoFeedback.textContent = `Mã ${promoOffer.code} đã được sử dụng và không thể dùng lại.`;
+        promoFeedback.style.color = '#c0392b';
+        return;
+      }
+
+      if (promoCode === promoOffer.code) {
+        promoFeedback.textContent = `Đã áp dụng mã ${promoOffer.code}, giảm ${Math.round(promoOffer.discountRate * 100)}% tiền món.`;
+        promoFeedback.style.color = '#1b7f3b';
+        return;
+      }
+    }
+
+    function renderCart() {
+      const cart = getCart();
+
+      if (!cart.length) {
+        cartList.innerHTML = `
+          <div class="cart-item">
+            <div>
+              <strong>Chưa có sản phẩm</strong>
+              <p>Vui lòng quay lại trang chủ hoặc menu để chọn món.</p>
+            </div>
+            <div>0đ</div>
+          </div>
+        `;
+        heroTotal.textContent = 'Tổng đơn: 0đ';
+        cartEmptyMessage.hidden = false;
+        orderMessage.hidden = true;
+        orderMessage.classList.remove('error');
+        updatePromoFeedback(0);
+        return;
+      }
+
+      const cartItemsHtml = cart.map((product) => `
+        <div class="cart-item">
+          <div>
+            <strong>${product.name}</strong>
+            <p>${product.quantity} x ${formatPrice(product.price)}</p>
+          </div>
+          <div>${formatPrice(product.price * product.quantity)}</div>
+        </div>
+      `).join('');
+
+      const subtotal = cart.reduce((total, product) => total + (product.price * product.quantity), 0);
+      const promoOffer = getPromoOffer();
+      const discountAmount = getDiscountAmount(subtotal);
+      const total = subtotal - discountAmount + SHIPPING_FEE;
+
+      cartList.innerHTML = `
+        ${cartItemsHtml}
+        <div class="cart-item">
+          <div>
+            <strong>Tạm tính</strong>
+          </div>
+          <div>${formatPrice(subtotal)}</div>
+        </div>
+        <div class="cart-item">
+          <div>
+            <strong>Giảm giá</strong>
+            <p>Mã ${promoOffer && getPromoCode() === promoOffer.code && !promoOffer.isUsed ? promoOffer.code : 'chưa áp dụng'}</p>
+          </div>
+          <div>-${formatPrice(discountAmount)}</div>
+        </div>
+        <div class="cart-item">
+          <div>
+            <strong>Phí vận chuyển</strong>
+            <p>Giao nhanh</p>
+          </div>
+          <div>${formatPrice(SHIPPING_FEE)}</div>
+        </div>
+        <div class="cart-item" id="cart-total">
+          <div>
+            <strong>Tổng cộng</strong>
+          </div>
+          <div><strong>${formatPrice(total)}</strong></div>
+        </div>
+      `;
+      heroTotal.textContent = `Tổng đơn: ${formatPrice(total)}`;
+      cartEmptyMessage.hidden = true;
+      updatePromoFeedback(cart.length);
+    }
+
+    renderCart();
+
+    resetCartBtn.addEventListener('click', () => {
+      localStorage.removeItem('cart');
+      renderCart();
+    });
+
+    promoCodeInput.addEventListener('input', () => {
+      renderCart();
+    });
+
+    promoCodeInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        renderCart();
+      }
+    });
+
+    confirmOrderBtn.addEventListener('click', () => {
+      const cart = getCart();
+
+      if (!cart.length) {
+        orderMessage.classList.add('error');
+        orderMessage.textContent = 'Chưa thể đặt hàng vì giỏ hàng đang trống.';
+        orderMessage.hidden = false;
+        return;
+      }
+
+      const missingFields = [];
+
+      if (!customerName.value.trim()) {
+        missingFields.push('họ và tên');
+      }
+
+      if (!customerPhone.value.trim()) {
+        missingFields.push('số điện thoại');
+      }
+
+      if (!customerAddress.value.trim()) {
+        missingFields.push('địa chỉ');
+      }
+
+      if (!customerDistrict.value.trim()) {
+        missingFields.push('quận/huyện');
+      }
+
+      if (!customerOption.value.trim()) {
+        missingFields.push('mức đá/đường');
+      }
+
+      if (missingFields.length) {
+        orderMessage.classList.add('error');
+        orderMessage.textContent = `Vui lòng nhập đầy đủ thông tin: ${missingFields.join(', ')}.`;
+        orderMessage.hidden = false;
+        return;
+      }
+
+      const promoOffer = getPromoOffer();
+
+      if (promoOffer && !promoOffer.isUsed && getPromoCode() === promoOffer.code) {
+        promoOffer.isUsed = true;
+        promoOffer.usedAt = new Date().toISOString();
+        localStorage.setItem(PROMO_STORAGE_KEY, JSON.stringify(promoOffer));
+      }
+
+      orderMessage.classList.remove('error');
+      orderMessage.textContent = 'Đặt hàng thành công. Cửa hàng đang chuẩn bị đơn cho bạn.';
+      orderMessage.hidden = false;
+      renderCart();
+    });
+  </script>
+</body>
+</html>
